@@ -1,1 +1,1 @@
-# room-scheduler
+# meeting-scheduler
