@@ -36,4 +36,8 @@ public class MeetingScheduler {
         return new Room(rooms.size() + 1, start, end);
     }
 
+    public int roomsUsed() {
+        return rooms.size();
+    }
+
 }
