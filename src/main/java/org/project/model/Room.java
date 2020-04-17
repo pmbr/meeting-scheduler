@@ -14,7 +14,7 @@ public class Room {
     public boolean scheduleMeeting(Meeting meeting) {
         if (firstMeeting == null) {
             this.firstMeeting = meeting;
-            this.lastMeeting = this.firstMeeting;
+            this.lastMeeting = meeting;
         } else if (meeting.getEnd().before(firstMeeting.getStart())) {
             meeting.setNext(firstMeeting);
             firstMeeting = meeting;
