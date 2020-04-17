@@ -16,7 +16,7 @@ public class MeetingScheduler {
     private List<Room> rooms = new ArrayList<>();
 
     public MeetingScheduler() {
-        this.poolSize = -1;
+        this.poolSize = Integer.MAX_VALUE;
     }
 
     public MeetingScheduler(int poolSize) {
@@ -53,7 +53,7 @@ public class MeetingScheduler {
     }
 
     private Room createRoomAndScheduleMeeting(Meeting meeting) {
-        if (this.poolSize != -1 && rooms.size() == this.poolSize) {
+        if (rooms.size() == this.poolSize) {
             throw new NoRoomAvailableException();
         }
         Room room = new Room(rooms.size() + 1);
