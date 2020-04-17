@@ -44,14 +44,11 @@ public class Room {
                 }
             }
         }
-
         return false;
     }
 
     public Integer getNumber() {
         return this.number;
     }
-
-
 
 }
