@@ -1,6 +1,7 @@
 package org.project.logic;
 
 import org.junit.Test;
+import org.project.exception.InvalidMeetingException;
 import org.project.exception.InvalidPoolSizeException;
 import org.project.exception.NoRoomAvailableException;
 import org.project.model.Room;
@@ -141,6 +142,12 @@ public class MeetingSchedulerTest {
         assertEquals(new Integer(4), roomMeeting8.getNumber());
 
         assertEquals(4, scheduler.roomsOccupied());
+    }
+
+    @Test(expected = InvalidMeetingException.class)
+    public void schedulingMeetingEndingBeforeStartingThrowsException() {
+        MeetingScheduler scheduler = new MeetingScheduler();
+        scheduler.scheduleMeeting(date(11, 0), date(10, 0));
     }
 
     @Test(expected = InvalidPoolSizeException.class)
