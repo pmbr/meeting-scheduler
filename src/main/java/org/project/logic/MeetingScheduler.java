@@ -1,5 +1,6 @@
 package org.project.logic;
 
+import org.project.exception.InvalidMeetingException;
 import org.project.exception.InvalidPoolSizeException;
 import org.project.exception.NoRoomAvailableException;
 import org.project.model.Meeting;
@@ -26,14 +27,17 @@ public class MeetingScheduler {
     }
 
     public Room scheduleMeeting(Date start, Date end) {
+        if (end.before(start)) {
+            throw new InvalidMeetingException(start, end);
+        }
         Meeting meeting = new Meeting(start, end);
         Room room;
         if (rooms.isEmpty()) {
-            room = createRoom(meeting);
+            room = createRoomAndScheduleMeeting(meeting);
         } else {
             room = useAvailableRoom(meeting);
             if (room == null) {
-                room = createRoom(meeting);
+                room = createRoomAndScheduleMeeting(meeting);
             }
         }
         return room;
@@ -48,7 +52,7 @@ public class MeetingScheduler {
         return null;
     }
 
-    private Room createRoom(Meeting meeting) {
+    private Room createRoomAndScheduleMeeting(Meeting meeting) {
         if (this.poolSize != -1 && rooms.size() == this.poolSize) {
             throw new NoRoomAvailableException();
         }
