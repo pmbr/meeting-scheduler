@@ -42,4 +42,4 @@ This approach was selected to keep scheduled meetings always ordered by start/en
 
 To simplify logic, two meetings cannot use same room if start date of of a meeting is the end date of previous one. 
 For instance, a meeting from 10:00 AM to 11:00 AM and another from 11:00 AM to 12:00 AM will occupy two rooms. 
-To use same room second meeting would need to be scheduled from 11:01 AM to 12:00 AM.
+To use same room, second meeting would need to be scheduled from 11:01 AM to 12:00 AM.
