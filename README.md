@@ -29,9 +29,9 @@ To schedule a new meeting:
 Room room = scheduler.schedule(Date start, Date end);
 ```
 
-```Integer roomNumber = room.getNumber()``` can be used to obtain room where meeting was scheduled.
+```Integer roomNumber = room.getNumber();``` can be used to obtain room where meeting was scheduled.
 
-```int roomsOccupied = scheduler.roomsOccupied()``` can be used to obtain the number of rooms occupied, ie, has any meeting scheduled at any time.
+```int roomsOccupied = scheduler.roomsOccupied();``` can be used to obtain the number of rooms occupied, ie, has any meeting scheduled at any time.
 
 For pools of limited size, attempt to schedule a meeting for a period where no room is available will cause ```NoRoomAvailableException```
 
