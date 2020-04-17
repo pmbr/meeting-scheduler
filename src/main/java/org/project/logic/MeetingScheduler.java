@@ -56,7 +56,8 @@ public class MeetingScheduler {
         if (this.poolSize != -1 && rooms.size() == this.poolSize) {
             throw new NoRoomAvailableException();
         }
-        Room room = new Room(rooms.size() + 1, meeting);
+        Room room = new Room(rooms.size() + 1);
+        room.scheduleMeeting(meeting);
         rooms.add(room);
         return room;
     }
