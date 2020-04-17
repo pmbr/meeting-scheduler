@@ -22,6 +22,7 @@ public class MeetingScheduler {
         if (poolSize < 1) {
             throw new InvalidPoolSizeException();
         }
+        this.poolSize = poolSize;
     }
 
     public Room scheduleMeeting(Date start, Date end) {
