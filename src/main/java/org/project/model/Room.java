@@ -38,6 +38,9 @@ public class Room {
                 } else {
                     currentMeeting = nextMeeting;
                     nextMeeting = currentMeeting.getNext();
+                    if (meeting.getEnd().before(currentMeeting.getStart())) {
+                        return false;
+                    }
                 }
             }
         }
