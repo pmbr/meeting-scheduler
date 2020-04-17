@@ -1,39 +1,55 @@
 package logic;
 
+import exception.InvalidPoolSizeException;
+import exception.NoRoomAvailableException;
+import model.Meeting;
 import model.Room;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class MeetingScheduler {
 
+    private int poolSize;
     private List<Room> rooms = new ArrayList<>();
 
-    public Room scheduleMeeting(Date start, Date end) {
+    public MeetingScheduler() {
+        this.poolSize = -1;
+    }
+
+    public MeetingScheduler(int poolSize) {
+        if (poolSize < 1) {
+            throw new InvalidPoolSizeException();
+        }
+    }
+
+    public Room scheduleMeeting(Meeting meeting) {
         Room room;
         if (rooms.isEmpty()) {
-            room = createRoom(start, end);
+            room = createRoom(meeting);
         } else {
-            room = useAvailableRoom(start, end);
+            room = useAvailableRoom(meeting);
             if (room == null) {
-                room = createRoom(start, end);
+                room = createRoom(meeting);
             }
         }
         return room;
     }
 
-    private Room useAvailableRoom(Date start, Date end) {
+    private Room useAvailableRoom(Meeting meeting) {
         for (Room room: rooms) {
-            if (room.scheduleMeeting(start, end)) {
+            if (room.scheduleMeeting(meeting)) {
                 return room;
             }
         }
         return null;
     }
 
-    private Room createRoom(Date start, Date end) {
-        return new Room(rooms.size() + 1, start, end);
+    private Room createRoom(Meeting meeting) {
+        if (this.poolSize != -1 && rooms.size() == this.poolSize) {
+            throw new NoRoomAvailableException();
+        }
+        return new Room(rooms.size() + 1, meeting);
     }
 
     public int roomsUsed() {

@@ -1,46 +1,46 @@
 package model;
 
-import java.util.Date;
-
 public class Room {
 
-    public Room(Integer number, Date start, Date end) {
+    public Integer number;
+
+    private int scheduledMeetings;
+    private Meeting firstMeeting;
+    private Meeting lastMeeting;
+
+    public Room(Integer number, Meeting meeting) {
         this.number = number;
-        this.firstMeeting = new Meeting(start, end);
+        this.firstMeeting = meeting;
         this.lastMeeting = this.firstMeeting;
         scheduledMeetings = 1;
     }
 
-    private int scheduledMeetings;
-
-    public Integer number;
-
-    public Meeting firstMeeting;
-    public Meeting lastMeeting;
-
-    public boolean scheduleMeeting(Date start, Date end) {
-        Meeting meeting = new Meeting(start, end);
-        if (end.before(firstMeeting.end)) {
-            firstMeeting.previous = meeting;
-            meeting.next = firstMeeting;
+    public boolean scheduleMeeting(Meeting meeting) {
+        if (meeting.getEnd().before(firstMeeting.getEnd())) {
+            firstMeeting.setPrevious(meeting);
+            meeting.setNext(firstMeeting);
             firstMeeting = meeting;
-        } else if (start.after(lastMeeting.end)) {
-            lastMeeting.previous = meeting;
-            meeting.next = lastMeeting;
+        } else if (meeting.start.after(lastMeeting.getEnd())) {
+            lastMeeting.setPrevious(meeting);
+            meeting.setNext(lastMeeting);
             lastMeeting = meeting;
         } else if (scheduledMeetings > 1){
             Meeting previousMeeting = firstMeeting;
-            Meeting nextMeeting = firstMeeting.next;
+            Meeting nextMeeting = firstMeeting.getNext();
             while (nextMeeting != null) {
-                if (end.after(previousMeeting.end) && start.before(nextMeeting.start)) {
-                    previousMeeting.next = meeting;
-                    nextMeeting.previous = meeting;
+                if (meeting.getEnd().after(previousMeeting.getEnd()) && meeting.getStart().before(nextMeeting.getStart())) {
+                    previousMeeting.setNext(meeting);
+                    nextMeeting.setPrevious(meeting);
                     return true;
                 }
             }
         }
 
         return false;
+    }
+
+    public Integer getNumber() {
+        return this.number;
     }
 
 
