@@ -1,11 +1,12 @@
-package logic;
+package org.project.logic;
 
-import exception.InvalidPoolSizeException;
-import exception.NoRoomAvailableException;
-import model.Meeting;
-import model.Room;
+import org.project.exception.InvalidPoolSizeException;
+import org.project.exception.NoRoomAvailableException;
+import org.project.model.Meeting;
+import org.project.model.Room;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MeetingScheduler {
@@ -23,7 +24,8 @@ public class MeetingScheduler {
         }
     }
 
-    public Room scheduleMeeting(Meeting meeting) {
+    public Room scheduleMeeting(Date start, Date end) {
+        Meeting meeting = new Meeting(start, end);
         Room room;
         if (rooms.isEmpty()) {
             room = createRoom(meeting);
@@ -49,10 +51,12 @@ public class MeetingScheduler {
         if (this.poolSize != -1 && rooms.size() == this.poolSize) {
             throw new NoRoomAvailableException();
         }
-        return new Room(rooms.size() + 1, meeting);
+        Room room = new Room(rooms.size() + 1, meeting);
+        rooms.add(room);
+        return room;
     }
 
-    public int roomsUsed() {
+    public int roomsOccupied() {
         return rooms.size();
     }
 

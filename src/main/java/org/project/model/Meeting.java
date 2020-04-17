@@ -1,4 +1,4 @@
-package model;
+package org.project.model;
 
 import java.util.Date;
 
@@ -7,7 +7,6 @@ public class Meeting {
     public Date start;
     public Date end;
 
-    public Meeting previous;
     public Meeting next;
 
     public Meeting(Date start, Date end) {
@@ -23,14 +22,6 @@ public class Meeting {
         return end;
     }
 
-    public Meeting getPrevious() {
-        return previous;
-    }
-
-    public void setPrevious(Meeting previous) {
-        this.previous = previous;
-    }
-
     public Meeting getNext() {
         return next;
     }
@@ -38,6 +29,5 @@ public class Meeting {
     public void setNext(Meeting next) {
         this.next = next;
     }
-
 
 }
